@@ -1,0 +1,43 @@
+.main{
+  background-color: #f8f8f8;
+  .swiper-box{
+    width: 100%;
+    min-height: 150px;
+  }
+  .swiper-item{
+    width: 100%;
+  }
+  .panel{
+    background-color: #ffffff;
+    margin: 10px 0;
+    .panel__title{
+      border-left-color: #1464F0;
+      height: 64px;
+      line-height: 64px;
+      //border-bottom: 1px solid #e2ecf4;
+    }
+    .panel-content{
+      padding: 0;
+      &__item {
+        width: 100%;
+        padding: 20px 10px;
+        border: 1px solid #e2ecf4;
+      }
+      &__icon{
+        text-align: center;
+        height: 80px;
+        line-height: 100px;
+        image{
+          width: 60px;
+          height: 60px;
+        }
+      }
+      &__name {
+        text-align: center;
+        font-size: 0.8rem;
+        color: #6a6a77;
+      }
+    }
+  }
+
+}
