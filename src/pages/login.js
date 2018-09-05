@@ -1,10 +1,24 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Image, Button } from '@tarojs/components'
+import { AtToast } from 'taro-ui'
+
 import '../styles/login.scss'
 import LogoPNG from '../images/logo.png'
 import UserPNG from '../images/user.png'
 import PasswordPNG from '../images/password.png'
 
+const config = {
+  baseUrl: 'https://uat.huilianyi.com'
+};
+const INIT_STATE= {
+  image: '',
+  icon: '',
+  text: '',
+  status: '',
+  duration: 3000,
+  hasMask: false,
+  isOpened: false
+};
 export default class Login extends Component {
   config = {
     navigationBarTitleText: '登录'
@@ -14,23 +28,78 @@ export default class Login extends Component {
     super();
     this.state = {
       username: "",
-      password: ""
+      password: "aaa",
+      image: '',
+      icon: '',
+      text: '',
+      status: '',
+      duration: 3000,
+      hasMask: false,
+      isOpened: false
     }
   }
+
+  handleShowToast = (text, icon, image, hasMask, status) => {
+    const state = Object.assign(
+      { ...INIT_STATE, isOpened: true },
+      { text, icon, image, hasMask, status }
+    );
+    this.setState(state);
+  };
+
   formSubmit = e => {
     console.log(e);
-    // let username = e.target.value.username;
-    // let password = e.target.value.password;
+    // // let username = e.target.value.username;
+    // // let password = e.target.value.password;
     let username = "13323454321";
     let password = "hly123";
-    if(username === "13323454321" && password === "hly123"){
-      Taro.redirectTo({
-        url: '/pages/main'
-      });
-      // wx.navigateBack({
-      //   url: '/pages/main'
-      // })
-    }
+    let loginType = "authorizationCode";
+    let self = this;
+    Taro.request({
+      url: `${config.baseUrl}/operationservice/public/isWhitelist?login=${username}`,
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        console.log(res.data);
+        let data = {
+          scope: 'read write',
+          grant_type: 'password',
+          username: username,
+          password: password
+        };
+        Taro.request({
+          url: encodeURI(`${config.baseUrl}/oauth/token`),
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic QXJ0ZW1pc1dlYjpuTENud2RJaGl6V2J5a0h5dVpNNlRwUURkN0t3SzlJWERLOExHc2E3U09X'
+          },
+          data: data,
+          success: function () {
+            Taro.redirectTo({
+              url: '/pages/main'
+            });
+          },
+          fail: function (res) {
+            self.handleShowToast(
+             res.data.message,
+              '',
+              '',
+              false,
+              '');
+          }
+        })
+      },
+      fail: function (res) {
+        self.handleShowToast(
+          res.data.message,
+          '',
+          '',
+          false,
+          '');
+      }
+    })
   };
 
 
@@ -39,6 +108,15 @@ export default class Login extends Component {
   };
 
   render () {
+    const {
+      text,
+      icon,
+      status,
+      isOpened,
+      duration,
+      image,
+      hasMask
+    } = this.state;
     return (
       <View className='page'>
         <View className='login'>
@@ -76,6 +154,15 @@ export default class Login extends Component {
                 formType='submit'
                 type='primary'>登录</Button>
             </Form>
+            <AtToast
+              icon={icon}
+              text={text}
+              image={image}
+              status={status}
+              hasMask={hasMask}
+              isOpened={isOpened}
+              duration={duration}
+            />
           </View>
         </View>
       </View>

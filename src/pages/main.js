@@ -21,7 +21,7 @@ if (process.env.TARO_ENV === "weapp") {
 } else if (process.env.TARO_ENV === "h5") {
   require("taro-ui/dist/h5/css/index.css")
 }
-export default class Login extends Component {
+export default class Main extends Component {
   config = {
     navigationBarTitleText: '汇联易',
     navigationBarBackgroundColor: '#1464F0',
@@ -57,7 +57,7 @@ export default class Login extends Component {
       applicationData: [
         {
           image: OrderPNG,
-          value: '我的订单'
+          value: '我的账本'
         },
         {
           image: OnlinePNG,

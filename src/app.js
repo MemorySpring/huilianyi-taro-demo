@@ -13,10 +13,10 @@ class App extends Component {
   config = {
     pages: [
       'pages/login',
-      'pages/index/index',
       'pages/main',
       'pages/expense/expense',
-      'pages/mine/mine'
+      'pages/mine/mine',
+      'pages/application/test'
     ],
     window: {
       backgroundTextStyle: 'light',

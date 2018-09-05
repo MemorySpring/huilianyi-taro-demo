@@ -2,7 +2,7 @@
 	"miniprogramRoot": "./dist",
 	"projectname": "huilianyi-taro-demo",
 	"description": "汇联易|重新定义报销引领差旅报销云时代，实现自动化管理",
-	"appid": "wxc43caccb07d3f762",
+	"appid": "wx24e15b671a037a3b",
 	"setting": {
 		"urlCheck": true,
 		"es6": false,

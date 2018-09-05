@@ -1,6 +1,6 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Image, Button,Swiper, SwiperItem } from '@tarojs/components'
-import '../styles/main.scss'
+import '../../styles/main.scss'
 
 import BanPNG from '../../images/banner.png'
 import BanPNG2 from '../../images/banner2.png'
