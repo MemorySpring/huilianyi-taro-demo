@@ -1,6 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Image, Button } from '@tarojs/components'
 import { AtToast } from 'taro-ui'
+import Util from 'util/util'
 
 import '../styles/login.scss'
 import LogoPNG from '../images/logo.png'
@@ -8,7 +9,7 @@ import UserPNG from '../images/user.png'
 import PasswordPNG from '../images/password.png'
 
 const config = {
-  baseUrl: 'https://uat.huilianyi.com'
+  baseUrl: 'https://stage.huilianyi.com'
 };
 const INIT_STATE= {
   image: '',
@@ -39,11 +40,10 @@ export default class Login extends Component {
     }
   }
 
-  handleShowToast = (text, icon, image, hasMask, status) => {
+  handleShowToast = (text) => {
     const state = Object.assign(
       { ...INIT_STATE, isOpened: true },
-      { text, icon, image, hasMask, status }
-    );
+      text);
     this.setState(state);
   };
 
@@ -53,7 +53,6 @@ export default class Login extends Component {
     // // let password = e.target.value.password;
     let username = "13323454321";
     let password = "hly123";
-    let loginType = "authorizationCode";
     let self = this;
     Taro.request({
       url: `${config.baseUrl}/operationservice/public/isWhitelist?login=${username}`,
@@ -61,43 +60,30 @@ export default class Login extends Component {
         'content-type': 'application/json'
       },
       success: function (res) {
-        console.log(res.data);
-        let data = {
-          scope: 'read write',
-          grant_type: 'password',
-          username: username,
-          password: password
-        };
+        let data = "username=" + encodeURIComponent(username) + "&password="
+          + encodeURIComponent(password) + "&grant_type=password&scope=read%20write";
         Taro.request({
-          url: encodeURI(`${config.baseUrl}/oauth/token`),
+          url: `${config.baseUrl}/oauth/token`,
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
+          header: {
+            'content-type': 'application/x-www-form-urlencoded',
             'Authorization': 'Basic QXJ0ZW1pc1dlYjpuTENud2RJaGl6V2J5a0h5dVpNNlRwUURkN0t3SzlJWERLOExHc2E3U09X'
           },
-          data: data,
-          success: function () {
+          data: data, //这里得改,参数只能这样传入,小程序不支持FormData格式参数
+          success: function (res) {
+            Taro.setStorage({ key: 'hly.token', data: JSON.stringify(res.data) });
             Taro.redirectTo({
               url: '/pages/main'
             });
           },
           fail: function (res) {
-            self.handleShowToast(
-             res.data.message,
-              '',
-              '',
-              false,
-              '');
+            self.handleShowToast("请求失败");
           }
         })
+
       },
       fail: function (res) {
-        self.handleShowToast(
-          res.data.message,
-          '',
-          '',
-          false,
-          '');
+        self.handleShowToast("请求失败");
       }
     })
   };

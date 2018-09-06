@@ -81,8 +81,13 @@ export default class Main extends Component {
     }
   }
 
-  handleClick = (value, index) => {
-    console.log(value, index)
+  handleClick = (value) => {
+    console.log(value);
+    if(value === '我的账本'){
+      Taro.navigateTo({
+        url: '/pages/application/test'
+      })
+    }
   };
 
   handleChangeTab = index => {
@@ -132,7 +137,7 @@ export default class Main extends Component {
               <View className='at-row at-row--wrap'>
                 {expenseData.map((icon, index) => (
                   <View className='at-col at-col-3'>
-                    <View className='panel-content__item' key={icon.value} onClick={this.handleClick.bind(this,index)}>
+                    <View className='panel-content__item' key={index} onClick={this.handleClick.bind(this,icon.value)}>
                       <View className='panel-content__icon'>
                         <Image src={icon.image}/>
                       </View>
@@ -149,7 +154,7 @@ export default class Main extends Component {
               <View className='at-row at-row--wrap'>
                 {applicationData.map((icon, index) => (
                   <View className='at-col at-col-3'>
-                    <View className='panel-content__item' key={icon.value} onClick={this.handleClick.bind(this,index)}>
+                    <View className='panel-content__item' key={index} onClick={this.handleClick.bind(this,icon.value)}>
                       <View className='panel-content__icon'>
                         <Image src={icon.image}/>
                       </View>
