@@ -9,7 +9,7 @@ import UserPNG from '../images/user.png'
 import PasswordPNG from '../images/password.png'
 
 const config = {
-  baseUrl: 'https://stage.huilianyi.com'
+  baseUrl: 'https://uat.huilianyi.com'
 };
 const INIT_STATE= {
   image: '',
@@ -77,7 +77,7 @@ export default class Login extends Component {
             });
           },
           fail: function (res) {
-            self.handleShowToast("请求失败");
+            self.handleShowToast("出错啦");
           }
         })
 

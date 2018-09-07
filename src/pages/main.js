@@ -91,7 +91,6 @@ export default class Main extends Component {
   };
 
   handleChangeTab = index => {
-    console.log(index);
     if(index === this.state.current){
       return false;
     }else{

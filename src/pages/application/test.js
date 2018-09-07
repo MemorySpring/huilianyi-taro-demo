@@ -3,14 +3,8 @@ import { View } from '@tarojs/components'
 import { AtCard, AtTag } from 'taro-ui'
 import moment from "moment/moment";
 
-import reportPNG from '../../images/application/account/列表.png'
-import didiPNG from '../../images/application/account/滴滴.png'
-import mileagePNG from '../../images/application/account/里程抵现.png'
-import diningPNG from '../../images/application/account/餐饮.png'
-import defaultPNG from '../../images/application/account/费用包含.png'
-
 const config = {
-  baseUrl: 'https://stage.huilianyi.com'
+  baseUrl: 'https://uat.huilianyi.com'
 };
 export default class Test extends Component {
   config = {
@@ -47,20 +41,7 @@ export default class Test extends Component {
     });
   };
 
-  handleIconType = (iconType) => {
-    switch (iconType) {
-      case "报表" :
-            return reportPNG;
-      case "餐饮" :
-        return diningPNG;
-      case "滴滴出行" :
-        return didiPNG;
-      case "里程补贴" :
-        return mileagePNG;
-      default :
-        return defaultPNG;
-    }
-  };
+
 
   render () {
     const {data} = this.state;

@@ -16,6 +16,7 @@ class App extends Component {
       'pages/main',
       'pages/expense/expense',
       'pages/mine/mine',
+      'pages/org-structure/org-structure',
       'pages/application/test'
     ],
     window: {
