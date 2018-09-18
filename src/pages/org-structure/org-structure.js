@@ -48,9 +48,8 @@ export default class OrgStructure extends Component {
               parentList.push(item);
             }
           });
-
           self.setState({
-            data: res.data
+            data: parentList
           });
         }
       });

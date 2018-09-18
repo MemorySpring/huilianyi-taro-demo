@@ -69,7 +69,7 @@ export default class Main extends Component {
         },
         {
           image: PayApplyPNG,
-          value: '申请'
+          value: '报表'
         }
       ],
       tabListData:[
@@ -85,7 +85,12 @@ export default class Main extends Component {
     console.log(value);
     if(value === '我的账本'){
       Taro.navigateTo({
-        url: '/pages/application/test'
+        url: '/pages/my-account/my-account'
+      })
+    }
+    if(value === '报表'){
+      Taro.navigateTo({
+        url: '/pages/personal-report/personal-report'
       })
     }
   };

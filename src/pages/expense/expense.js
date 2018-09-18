@@ -67,10 +67,10 @@ export default class Expense extends Component {
             <View className='tab-content'><AtButton type='primary'>按钮文案1</AtButton></View>
           </AtTabsPane>
           <AtTabsPane>
-            <View className='tab-content'>><AtButton type='secondary'>按钮文案2</AtButton></View>
+            <View className='tab-content'><AtButton type='secondary'>按钮文案2</AtButton></View>
           </AtTabsPane>
           <AtTabsPane>
-            <View className='tab-content'>><AtButton>按钮文案3</AtButton></View>
+            <View className='tab-content'><AtButton>按钮文案3</AtButton></View>
           </AtTabsPane>
         </AtTabs>
         <AtTabBar

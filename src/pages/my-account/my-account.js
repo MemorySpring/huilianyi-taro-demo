@@ -6,7 +6,7 @@ import moment from "moment/moment";
 const config = {
   baseUrl: 'https://uat.huilianyi.com'
 };
-export default class Test extends Component {
+export default class MyAccount extends Component {
   config = {
     navigationBarTitleText: '我的账本'
   };
@@ -27,7 +27,7 @@ export default class Test extends Component {
     Taro.getStorage({ key: 'hly.token' }).then(res => {
       token = res.data;
       Taro.request({
-        url: `${config.baseUrl}/api/invoices/init/all/by?page=0&size=70`,
+        url: `${config.baseUrl}/api/invoices/init/all/by?page=0&size=20`,
         header: {
           'content-type': 'application/json',
           'Authorization': 'Bearer ' + JSON.parse(token).access_token

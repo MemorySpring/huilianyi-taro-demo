@@ -17,7 +17,10 @@ class App extends Component {
       'pages/expense/expense',
       'pages/mine/mine',
       'pages/org-structure/org-structure',
-      'pages/application/test'
+      'pages/my-account/my-account',
+      'pages/personal-report/personal-report',
+      'pages/dep-report/dep-report',
+      'pages/cost-center/cost-center'
     ],
     window: {
       backgroundTextStyle: 'light',
