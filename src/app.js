@@ -36,8 +36,6 @@ class App extends Component {
 
   componentDidHide () {}
 
-  componentCatchError () {}
-
   render () {
     return (
       <Provider store={store}>

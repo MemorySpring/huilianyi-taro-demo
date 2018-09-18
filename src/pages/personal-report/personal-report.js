@@ -1,7 +1,7 @@
 import * as echarts from '../../components/ec-canvas/echarts';
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Image, Text, Picker} from '@tarojs/components'
-import { AtTabBar, AtIcon,AtList, AtListItem  } from 'taro-ui'
+import { AtTabBar } from 'taro-ui'
 import bannerIcon from '../../images/report/@2xOval 9 Copy 3.png'
 import arrowLeft from '../../images/report/arrow-left.png'
 import arrowRight from '../../images/report/arrow-right.png'
@@ -22,13 +22,12 @@ function initChart(canvas, width, height) {
     },
     tooltip: {},
     legend: {
-      data:['销量'],
+      data:['报销金额'],
       backgroundColor: '#1E3255'
     },
     xAxis: {
       data: ["6月","7月","8月","9月","10月","11月"]
     },
-    yAxis: {},
     series: [{
       name: '报销金额',
       type: 'bar',
@@ -144,7 +143,7 @@ export default class PersonalReport extends Component {
         </View>
         <View className='search-input'>
           <Image
-            style={{width: 20+'rpx',height: 20+'rpx',float: "left"}}
+            style={{width: 40+'rpx',height: 40+'rpx',float: "left"}}
             src={arrowLeft}
             onClick={this.handlePrevDate}
           />
@@ -152,7 +151,7 @@ export default class PersonalReport extends Component {
             <Input type='text' value={date}/>
           </Picker>
           <Image
-            style={{width: 20+'rpx',height: 20+'rpx',float: "right"}}
+            style={{width: 40+'rpx',height: 40+'rpx',float: "right"}}
             src={arrowRight}
             onClick={this.handleNextDate}
           />
@@ -160,7 +159,9 @@ export default class PersonalReport extends Component {
         <View className="bar-chart">
           <ec-canvas id='mychart-dom-area' canvas-id='mychart-area' ec={this.state.ec} />
         </View>
+        <View>
 
+        </View>
         <AtTabBar
           fixed
           tabList={tabListData}
