@@ -19,6 +19,7 @@ class App extends Component {
       'pages/org-structure/org-structure',
       'pages/my-account/my-account',
       'pages/personal-report/personal-report',
+      'pages/personal-report-reimbursing/personal-report-reimbursing',
       'pages/dep-report/dep-report',
       'pages/cost-center/cost-center'
     ],

@@ -1,8 +1,9 @@
 .personal-report {
+  padding-bottom: 74px;
   .personal-report-top{
-    padding: 0 15Px;
     background-color: #1E3255;
     .tips-banner{
+      padding: 0 15Px;
       background-color: #1E3255;
       height: 48Px;
       line-height: 48Px;
@@ -18,7 +19,7 @@
       }
     }
     .search-input{
-      margin: 10Px 0 15Px 0;
+      margin: 10Px 15Px 15Px 15Px;
       background-color: #182A48 ;
       padding: 10px 20px;
       border-radius: 5px;
@@ -27,13 +28,16 @@
       text-align: center;
       color: #ffffff;
       font-size: 0.8rem;
+      width: calc(100% - 30Px);
       .picker{
         width: 100%;
       }
     }
     .report-details{
+      padding: 0 15Px;
       color: #ffffff;
       font-size: 0.8rem;
+      border-bottom: 1px solid #182A48;
       a{
         text-align: center;
         position: absolute;
@@ -63,6 +67,28 @@
     font-size: 0.7rem;
     color: #8C96B4;
   }
+  .personal-report-bottom{
+    .expense-type-item{
+      padding: 12Px 11Px 12Px 0;
+      color: #505564;
+      font-size: 0.8rem;
+      text-align:center;
+      image{
+        vertical-align: middle;
+      }
+      .expense-type-text{
+        margin-bottom: 10px;
+        text-align: center;
+        .at-col:first-child{
+          text-align: left;
+          color: #0A0F1E;
+        }
+        .at-col:last-child{
+          text-align: right;
+        }
+      }
+    }
+  }
 }
 
 .bar-chart{
@@ -72,4 +98,27 @@
 ec-canvas {
   width: 100%;
   height: 100%;
+}
+.reimbursing{
+  background-color: #EBEDEF;
+  .reimbursing-banner{
+    border-bottom: 1px solid #D7DCE6;
+    height: 74Px;
+    line-height: 74Px;
+    color: #1469B4;
+    font-size: 1.2rem;
+    text-align: center;
+    background-color: #ffffff;
+  }
+  .at-tabs__item::after {
+    content: '';
+    position: absolute;
+    left: calc(50% - 40PX);
+    bottom: 0;
+    width: 80PX;
+    height: 2PX;
+  }
+  .reimbursing-content{
+    padding-top: 10px;
+  }
 }

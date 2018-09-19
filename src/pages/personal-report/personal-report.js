@@ -1,7 +1,7 @@
 import * as echarts from '../../components/ec-canvas/echarts';
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Image, Text, Picker} from '@tarojs/components'
-import { AtTabBar, AtIcon } from 'taro-ui'
+import { AtTabBar, AtIcon, AtProgress} from 'taro-ui'
 import bannerIcon from '../../images/report/@2xOval 9 Copy 3.png'
 import arrowLeft from '../../images/report/arrow-left.png'
 import arrowRight from '../../images/report/arrow-right.png'
@@ -11,6 +11,7 @@ import '../../styles/report/report.scss'
 
 const xaxisLabel = [];
 const xaxisValue = [];
+const colorList = [" #52D29E", "#FA6478", "#FDB34A", "#22B3DE"];
 if (process.env.TARO_ENV === "weapp") {
   require("taro-ui/dist/weapp/css/index.css")
 } else if (process.env.TARO_ENV === "h5") {
@@ -24,9 +25,9 @@ function setOption(chart) {
     tooltip: {},
     backgroundColor: '#1E3255',
     grid:{
-      top: 10,
-      right:0,
-      left:0,
+      top: 0,
+      right:10,
+      left:10,
       bottom:0
     },
     xAxis: {
@@ -101,6 +102,7 @@ export default class PersonalReport extends Component {
       unSubmitTotalAmount: 0,//未报销金额
       payingTotalAmount: 0,//已报销未付款金额
       paidTotalAmount: 0,//已报销已付款金额
+      monthlyExpenseOverviewList: [],//报销单费用类别
       date: '2018-11'
     }
   }
@@ -131,7 +133,8 @@ export default class PersonalReport extends Component {
             totalAmount: res.data.totalAmount,
             unSubmitTotalAmount: res.data.unSubmitTotalAmount,
             paidTotalAmount: res.data.paidTotalAmount.totalAmount,
-            payingTotalAmount: res.data.payingTotalAmount.totalAmount
+            payingTotalAmount: res.data.payingTotalAmount.totalAmount,
+            monthlyExpenseOverviewList: res.data.monthlyExpenseOverviewList
           });
           self.init();
         }
@@ -163,7 +166,9 @@ export default class PersonalReport extends Component {
   };
 
   handleUnReimburse = () => {
-
+    Taro.navigateTo({
+      url: `/pages/personal-report-reimbursing/personal-report-reimbursing?unSubmitTotalAmount=${this.state.unSubmitTotalAmount}`
+    })
   };
 
   handleReimbursed = () => {
@@ -206,11 +211,12 @@ export default class PersonalReport extends Component {
   }
 
   render () {
-    const {tabListData, currentCode, totalAmount, unSubmitTotalAmount, payingTotalAmount, paidTotalAmount, date} = this.state;
+    const {tabListData, currentCode, totalAmount, unSubmitTotalAmount, payingTotalAmount, paidTotalAmount, monthlyExpenseOverviewList, date} = this.state;
     return (
       <View className='personal-report'>
         <View className='personal-report-top'>
-          <View className='tips-banner'>
+          {unSubmitTotalAmount > 0 &&
+          (<View className='tips-banner'>
             <View  className={'pull-left'}>
               <Image
                 style={{width: 20+'px',height: 20+'px'}}
@@ -218,10 +224,10 @@ export default class PersonalReport extends Component {
               />
               你还有&nbsp;<Text style={{fontWeight: 600}}>{currentCode}{unSubmitTotalAmount}</Text>&nbsp;没有报销哦
             </View>
-            <View className='pull-right'>
-              <a onClick={this.handleUnReimburse}>查看</a>
+            <View className='pull-right' onClick={this.handleUnReimburse}>
+              <Text>查看</Text>
             </View>
-          </View>
+          </View>)}
           <View className='search-input'>
             <View className='at-row at-row--wrap'>
               <View className='at-col at-col-1'>
@@ -244,9 +250,6 @@ export default class PersonalReport extends Component {
                 />
               </View>
             </View>
-
-
-
           </View>
           <View className={'at-row at-row--wrap report-details'}>
             <View  className={'at-col at-col-11'}>
@@ -269,9 +272,9 @@ export default class PersonalReport extends Component {
               </View>
             </View>
             <View className='at-col at-col-1' style={{position: "relative"}}>
-              <a onClick={this.handleReimbursed}>
+              {payingTotalAmount > 0 && (<a onClick={this.handleReimbursed}>
                 <AtIcon value='chevron-right' size='12' color='#FFFFFF' />
-              </a>
+              </a>)}
             </View>
           </View>
           <View className="bar-chart">
@@ -287,6 +290,33 @@ export default class PersonalReport extends Component {
             ))}
           </View>
         </View>}
+        <View className='personal-report-bottom'>
+          {monthlyExpenseOverviewList.map((item,index) => (
+            <View className='expense-type-item' key={index}>
+              <View className='at-row at-row--wrap'>
+                <View className='at-col at-col-2'>
+                  <Image src={item.iconUrl} style={{width: '28px',height: '28px'}}/>
+                </View>
+                <View className='at-col at-col-10'>
+                  <View className='expense-type-text'>
+                    <View className='at-row at-row--wrap'>
+                      <View className='at-col at-col-4'>
+                        <Text>{item.expenseTypeName}</Text>
+                      </View>
+                      <View className='at-col at-col-4'>
+                        <Text>{Math.floor(Number(item.totalAmount)/ Number(paidTotalAmount)* 100) + '%'}</Text>
+                      </View>
+                      <View className='at-col at-col-4'>
+                        <Text>{item.totalAmount.toFixed(2)}</Text>
+                      </View>
+                    </View>
+                  </View>
+                  <AtProgress percent={Math.floor(Number(item.totalAmount)/ Number(paidTotalAmount)* 100)} color={colorList[index % 4]} isHidePercent />
+                </View>
+              </View>
+            </View>
+          ))}
+        </View>
         <AtTabBar
           fixed
           tabList={tabListData}
