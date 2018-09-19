@@ -1,16 +1,13 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Image, Button } from '@tarojs/components'
 import { AtToast } from 'taro-ui'
-import Util from 'util/util'
+import config from '../../src/config/dev'
 
 import '../styles/login.scss'
 import LogoPNG from '../images/logo.png'
 import UserPNG from '../images/user.png'
 import PasswordPNG from '../images/password.png'
 
-const config = {
-  baseUrl: 'https://uat.huilianyi.com'
-};
 const INIT_STATE= {
   image: '',
   icon: '',

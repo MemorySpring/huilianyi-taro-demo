@@ -140,7 +140,7 @@ export default class Main extends Component {
             <View className='panel__content'>
               <View className='at-row at-row--wrap'>
                 {expenseData.map((icon, index) => (
-                  <View className='at-col at-col-3'>
+                  <View className='at-col at-col-3' key={index}>
                     <View className='panel-content__item' key={index} onClick={this.handleClick.bind(this,icon.value)}>
                       <View className='panel-content__icon'>
                         <Image src={icon.image}/>
@@ -157,7 +157,7 @@ export default class Main extends Component {
             <View className='panel__content'>
               <View className='at-row at-row--wrap'>
                 {applicationData.map((icon, index) => (
-                  <View className='at-col at-col-3'>
+                  <View className='at-col at-col-3' key={index}>
                     <View className='panel-content__item' key={index} onClick={this.handleClick.bind(this,icon.value)}>
                       <View className='panel-content__icon'>
                         <Image src={icon.image}/>

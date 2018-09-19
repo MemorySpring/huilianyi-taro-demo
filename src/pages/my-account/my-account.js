@@ -2,10 +2,8 @@ import Taro, { Component, Config } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtCard, AtTag } from 'taro-ui'
 import moment from "moment/moment";
+import config from '../../../src/config/dev'
 
-const config = {
-  baseUrl: 'https://uat.huilianyi.com'
-};
 export default class MyAccount extends Component {
   config = {
     navigationBarTitleText: '我的账本'

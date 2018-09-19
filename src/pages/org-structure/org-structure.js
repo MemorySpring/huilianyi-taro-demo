@@ -1,13 +1,11 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtTabBar, AtList, AtListItem  } from 'taro-ui'
+import config from '../../../src/config/dev'
 
 import floderPNG from '../../images/mine/orgStructure/floder.png'
 import avatarPNG from '../../images/mine/orgStructure/avatar-common.png'
 
-const config = {
-  baseUrl: 'https://uat.huilianyi.com'
-};
 
 export default class OrgStructure extends Component {
   config = {
